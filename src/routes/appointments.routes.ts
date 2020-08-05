@@ -15,7 +15,8 @@ appointmentsRouter.get('/', (request, response) => {
 appointmentsRouter.post('/', (request, response) => {
   const { provider, date } = request.body;
 
-  const parsedDate = startOfHour(parseISO(date));
+  const parsedDate = parseISO(date);
+  const appointmentDate = startOfHour(parsedDate);
 
   if (appointmentsRepository.findByDate(parsedDate)) {
     return response
@@ -25,7 +26,7 @@ appointmentsRouter.post('/', (request, response) => {
 
   const appointment = appointmentsRepository.create({
     provider,
-    date: parsedDate,
+    date: appointmentDate,
   });
 
   return response.json(appointment);
