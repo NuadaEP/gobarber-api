@@ -15,7 +15,7 @@ class CreateAppointmentService {
 
     const appointmentDate = startOfHour(date);
 
-    if (appointmentsRepository.findByDate(date))
+    if (await appointmentsRepository.findByDate(date))
       throw Error('This appointment is already booked');
 
     const appointment = appointmentsRepository.create({
