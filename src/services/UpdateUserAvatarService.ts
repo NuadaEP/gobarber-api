@@ -23,11 +23,13 @@ export default class UpdateUserAvatarService {
       const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
 
       if (userAvatarFileExists) await fs.promises.unlink(userAvatarFilePath);
-
-      user.avatar = avatarFilename;
-
-      await usersRepository.save(user);
     }
+
+    user.avatar = avatarFilename;
+
+    await usersRepository.save(user);
+
+    delete user.password;
 
     return user;
   }
