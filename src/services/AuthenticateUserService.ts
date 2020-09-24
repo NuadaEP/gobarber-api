@@ -4,6 +4,7 @@ import { sign } from 'jsonwebtoken';
 
 import authConfig from '../config/auth';
 import User from '../models/User';
+import AppError from '../errors/AppError';
 
 interface Request {
   email: string;
@@ -23,13 +24,14 @@ export default class AuthenticateUserService {
       where: { email },
     });
 
-    if (!user) throw new Error('Incorret email/password combination');
+    if (!user) throw new AppError('Incorret email/password combination', 401);
 
     const passwordMatch = await compare(password, user.password);
 
     const { secret, expiresIn } = authConfig.jwt;
 
-    if (!passwordMatch) throw new Error('Incorret email/password combination');
+    if (!passwordMatch)
+      throw new AppError('Incorret email/password combination', 401);
 
     const token = sign({}, secret, {
       subject: user.id,
