@@ -3,8 +3,8 @@ import multer from 'multer';
 
 import CreateUserService from '../services/CreateUserService';
 import UpdateUserAvatarService from '../services/UpdateUserAvatarService';
-import ensureAuthenticated from '../shared/middlewares/endureAuthenticated';
-import uploadConfig from '../config/upload';
+import ensureAuthenticated from '../middlewares/endureAuthenticated';
+import uploadConfig from '../../config/upload';
 
 const usersRouter = Router();
 const upload = multer(uploadConfig);

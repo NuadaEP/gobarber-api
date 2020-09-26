@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 
-import Routes from './routes';
+import Routes from './shared/routes';
 import uploadConfig from './config/upload';
 import AppError from './shared/errors/AppError';
 
