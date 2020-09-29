@@ -5,14 +5,16 @@ import CreateUserService from '@modules/users/services/CreateUserService';
 import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/endureAuthenticated';
 import uploadConfig from '@config/upload';
+import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 
 const usersRouter = Router();
 const upload = multer(uploadConfig);
+const usersRepository = new UsersRepository();
 
 usersRouter.post('/', async (request, response) => {
   const { name, email, password } = request.body;
 
-  const createUser = new CreateUserService();
+  const createUser = new CreateUserService(usersRepository);
 
   const user = await createUser.execute({ name, email, password });
 
