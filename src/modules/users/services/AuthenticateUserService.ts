@@ -26,14 +26,17 @@ export default class AuthenticateUserService {
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
 
-    if (!user) throw new AppError('Incorret email/password combination', 401);
+    if (!user) {
+      throw new AppError('Incorret email/password combination', 401);
+    }
 
     const passwordMatch = await compare(password, user.password);
 
     const { secret, expiresIn } = authConfig.jwt;
 
-    if (!passwordMatch)
+    if (!passwordMatch) {
       throw new AppError('Incorret email/password combination', 401);
+    }
 
     const token = sign({}, secret, {
       subject: user.id,
