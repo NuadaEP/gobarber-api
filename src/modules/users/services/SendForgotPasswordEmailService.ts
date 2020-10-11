@@ -14,5 +14,5 @@ export default class SendForgotPasswordEmailService {
     @inject('UsersRepository') private usersRepository: IUserRepository,
   ) {}
 
-  public async execute(): Promise<void> {}
+  public async execute({ email }: IRequest): Promise<void> {}
 }
