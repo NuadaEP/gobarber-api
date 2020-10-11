@@ -21,6 +21,7 @@ describe('SendForgotPasswordEmail', () => {
 
     const sendForgotPasswordEmail = new SendForgotPasswordEmailService(
       fakeUsersRepository,
+      fakeMailProvider,
     );
 
     await sendForgotPasswordEmail.execute({ email: data.email });
